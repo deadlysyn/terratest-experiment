@@ -14,6 +14,7 @@ data "aws_caller_identity" "current" {}
 
 module "web" {
   source          = "../../modules/web"
+  app_name        = var.app_name
   ecr_expire_days = var.ecr_expire_days
   environment     = var.environment
   region          = var.region

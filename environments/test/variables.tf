@@ -1,10 +1,5 @@
-variable "region" {
-  description = "AWS region to target"
-  type        = string
-}
-
-variable "environment" {
-  description = "Environment to deploy"
+variable "app_name" {
+  description = "App/ECS task family name"
   type        = string
 }
 
@@ -13,11 +8,15 @@ variable "ecr_expire_days" {
   type        = number
 }
 
-# variable "app_name" {
-#   description = "App/ECS task family name"
-#   type        = string
-#   default     = "user-provisioning"
-# }
+variable "environment" {
+  description = "Environment to deploy"
+  type        = string
+}
+
+variable "region" {
+  description = "AWS region to target"
+  type        = string
+}
 
 # variable "instance_count" {
 #   description = "Number of task instances"
