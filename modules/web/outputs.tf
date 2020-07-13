@@ -1,19 +1,7 @@
-output "example" {
-  value = data.template_file.example.rendered
+output "vpc_id" {
+  value = data.aws_vpc.selected.id
 }
 
-output "example2" {
-  value = data.template_file.example2.rendered
-}
-
-output "example_list" {
-  value = var.example_list
-}
-
-output "example_map" {
-  value = var.example_map
-}
-
-output "example_any" {
-  value = var.example_any
+output "subnet_ids" {
+  value = data.aws_subnet_ids.selected.ids
 }
