@@ -5,6 +5,8 @@ RUN apk update && \
       apk --no-cache add curl # support container health checks
 
 COPY src/public/html /usr/share/nginx/html/
+COPY entrypoint.sh /root/
 
 EXPOSE 80
 
+ENTRYPOINT ["/root/entrypoint.sh"]
