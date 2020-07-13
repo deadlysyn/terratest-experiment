@@ -2,8 +2,9 @@ FROM nginx:stable-alpine
 
 RUN apk update && \
       apk upgrade && \
-      apk --no-cache add curl
+      apk --no-cache add curl # support container health checks
 
-COPY html /usr/share/nginx/html
+COPY src/public/html /usr/share/nginx/html/
 
 EXPOSE 80
+
