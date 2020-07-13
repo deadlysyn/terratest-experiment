@@ -1,0 +1,33 @@
+[
+  {
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/${name}",
+        "awslogs-region": "${region}",
+        "awslogs-stream-prefix": "${name}-app"
+      }
+    },
+    "portMappings": [
+      {
+        "containerPort": 80,
+        "protocol": "tcp"
+      }
+    ],
+    "command": ["nginx"],
+    "cpu": ${container_cpu},
+    "memory": ${container_memory},
+    "stopTimeout": 10,
+    "image": "${image}",
+    "startTimeout": 10,
+    "healthCheck": {
+      "retries": 2,
+      "command": ["CMD-SHELL", "curl -f http://localhost:${container_port}/ || exit 1"],
+      "timeout": 5,
+      "interval": 60,
+      "startPeriod": 10
+    },
+    "essential": true,
+    "name": "${name}-app"
+  }
+]
