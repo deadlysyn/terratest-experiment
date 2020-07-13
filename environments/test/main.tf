@@ -13,10 +13,11 @@ provider "aws" {
 data "aws_caller_identity" "current" {}
 
 module "web" {
-  source      = "../../modules/web"
-  environment = var.environment
-  region      = var.region
-  tags        = var.tags
+  source          = "../../modules/web"
+  ecr_expire_days = var.ecr_expire_days
+  environment     = var.environment
+  region          = var.region
+  tags            = var.tags
   # alb_destroy_log_bucket             = var.alb_destroy_log_bucket
   # aws_account_id                     = data.aws_caller_identity.current.account_id
   # aws_account_arn                    = data.aws_caller_identity.current.arn

@@ -8,6 +8,11 @@ variable "environment" {
   type        = string
 }
 
+variable "ecr_expire_days" {
+  description = "How many days to keep old ECR images"
+  type        = number
+}
+
 # variable "app_name" {
 #   description = "App/ECS task family name"
 #   type        = string
