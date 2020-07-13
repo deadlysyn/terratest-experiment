@@ -57,10 +57,6 @@ variable "region" {
 variable "tags" {
   description = "Standard tags for all resources"
   type        = map
-  default = {
-    description = "experimenting with terratest"
-    owner       = "test corp"
-  }
 }
 
 variable "task_role_arn" {
