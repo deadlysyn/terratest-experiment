@@ -74,16 +74,16 @@ resource "aws_cloudwatch_log_group" "web" {
   tags              = local.tags
 }
 
-# resource "aws_ecs_cluster" "user_provisioning" {
-#   name = "${var.app_name}-${var.environment}"
+resource "aws_ecs_cluster" "user_provisioning" {
+  name = "${var.app_name}-${var.environment}"
 
-#   tags = local.tags
+  tags = local.tags
 
-#   setting {
-#     name  = "containerInsights"
-#     value = "enabled"
-#   }
-# }
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
+}
 
 # resource "aws_ecs_task_definition" "user_provisioning" {
 #   family = "${var.app_name}-${var.environment}"
