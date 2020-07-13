@@ -42,8 +42,9 @@ variable "region" {
 variable "tags" {
   description = "Standard tags for all resources"
   type        = map
-  default = {
-    description = "experimenting with terratest"
-    owner       = "test corp"
-  }
+}
+
+variable "web_log_retention_days" {
+  description = "How long to keep web app cloudwatch logs"
+  type        = number
 }

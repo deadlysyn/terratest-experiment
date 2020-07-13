@@ -68,11 +68,11 @@ resource "aws_ecr_lifecycle_policy" "web" {
 EOF
 }
 
-# resource "aws_cloudwatch_log_group" "user_provisioning" {
-#   name              = "/ecs/${var.app_name}-${var.environment}"
-#   retention_in_days = 7
-#   tags              = local.tags
-# }
+resource "aws_cloudwatch_log_group" "web" {
+  name              = "/ecs/${var.app_name}-${var.environment}"
+  retention_in_days = var.web_log_retention_days
+  tags              = local.tags
+}
 
 # resource "aws_ecs_cluster" "user_provisioning" {
 #   name = "${var.app_name}-${var.environment}"
