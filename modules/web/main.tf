@@ -88,10 +88,12 @@ resource "aws_ecs_cluster" "web" {
 resource "aws_ecs_task_definition" "web" {
   family = "${var.app_name}-${var.environment}"
   container_definitions = templatefile("${path.module}/templates/containerDefinition.json", {
-    name        = "${var.app_name}-${var.environment}",
-    environment = var.environment,
-    image       = "${aws_ecr_repository.web.repository_url}:latest"
-    region      = var.region
+    container_cpu    = var.container_cpu,
+    container_memory = var.container_memory,
+    environment      = var.environment,
+    image            = "${aws_ecr_repository.web.repository_url}:latest"
+    name             = "${var.app_name}-${var.environment}",
+    region           = var.region
   })
   task_role_arn      = var.task_role_arn
   execution_role_arn = var.execution_role_arn
