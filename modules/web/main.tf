@@ -74,7 +74,7 @@ resource "aws_cloudwatch_log_group" "web" {
   tags              = local.tags
 }
 
-resource "aws_ecs_cluster" "user_provisioning" {
+resource "aws_ecs_cluster" "web" {
   name = "${var.app_name}-${var.environment}"
 
   tags = local.tags
@@ -85,24 +85,24 @@ resource "aws_ecs_cluster" "user_provisioning" {
   }
 }
 
-# resource "aws_ecs_task_definition" "user_provisioning" {
-#   family = "${var.app_name}-${var.environment}"
-#   container_definitions = templatefile("containerDefinition.json", {
-#     name        = "${var.app_name}-${var.environment}",
-#     environment = var.environment,
-#     image       = "${aws_ecr_repository.user_provisioning.repository_url}:latest"
-#     region      = var.region
-#   })
-#   task_role_arn      = "arn:aws:iam::488733969274:role/ecsTaskExecutionRole"
-#   execution_role_arn = "arn:aws:iam::488733969274:role/ecsTaskExecutionRole"
-#   network_mode       = "awsvpc"
-#   cpu                = "256"
-#   memory             = "512"
+resource "aws_ecs_task_definition" "web" {
+  family = "${var.app_name}-${var.environment}"
+  container_definitions = templatefile("${path.module}/templates/containerDefinition.json", {
+    name        = "${var.app_name}-${var.environment}",
+    environment = var.environment,
+    image       = "${aws_ecr_repository.web.repository_url}:latest"
+    region      = var.region
+  })
+  task_role_arn      = var.task_role_arn
+  execution_role_arn = var.execution_role_arn
+  network_mode       = "awsvpc"
+  cpu                = var.container_cpu
+  memory             = var.container_memory
 
-#   depends_on = [aws_cloudwatch_log_group.user_provisioning]
+  depends_on = [aws_cloudwatch_log_group.web]
 
-#   tags = local.tags
-# }
+  tags = local.tags
+}
 
 # resource "aws_ecs_service" "user_provisioning" {
 #   name                              = "${var.app_name}-${var.environment}"

@@ -3,6 +3,16 @@ variable "app_name" {
   type        = string
 }
 
+variable "container_cpu" {
+  description = "CPU units used by task (1024 = 1 CPU)"
+  type        = number
+}
+
+variable "container_memory" {
+  description = "Memory used by task in MiB"
+  type        = number
+}
+
 variable "ecr_expire_days" {
   description = "How many days to keep old ECR images"
   type        = number
@@ -10,6 +20,11 @@ variable "ecr_expire_days" {
 
 variable "environment" {
   description = "Environment to deploy"
+  type        = string
+}
+
+variable "execution_role_arn" {
+  description = "IAM role used by Fargate to make API calls"
   type        = string
 }
 
@@ -46,6 +61,11 @@ variable "tags" {
     description = "experimenting with terratest"
     owner       = "test corp"
   }
+}
+
+variable "task_role_arn" {
+  description = "IAM role granting Fargate task permissions"
+  type        = string
 }
 
 variable "web_log_retention_days" {

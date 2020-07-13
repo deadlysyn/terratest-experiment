@@ -1,5 +1,10 @@
-app_name               = "web"
-ecr_expire_days        = 5
-environment            = "test"
-region                 = "us-east-2"
-web_log_retention_days = 3
+app_name                     = "web"
+container_cpu                = 256
+container_memory             = 512
+container_memory_reservation = 512
+ecr_expire_days              = 5
+environment                  = "test"
+execution_role_arn           = "arn:aws:iam::025749995053:role/ecsTaskExecutionRole"
+region                       = "us-east-2"
+task_role_arn                = "arn:aws:iam::025749995053:role/ecsTaskExecutionRole"
+web_log_retention_days       = 3

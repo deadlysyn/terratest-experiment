@@ -3,6 +3,16 @@ variable "app_name" {
   type        = string
 }
 
+variable "container_cpu" {
+  description = "CPU units used by task (1024 = 1 CPU)"
+  type        = number
+}
+
+variable "container_memory" {
+  description = "Memory used by task in MiB"
+  type        = number
+}
+
 variable "ecr_expire_days" {
   description = "How many days to keep old ECR images"
   type        = number
@@ -13,10 +23,16 @@ variable "environment" {
   type        = string
 }
 
+variable "execution_role_arn" {
+  description = "IAM role used by Fargate to make API calls"
+  type        = string
+}
+
 variable "region" {
   description = "AWS region to target"
   type        = string
 }
+
 
 # variable "instance_count" {
 #   description = "Number of task instances"
@@ -42,6 +58,11 @@ variable "region" {
 variable "tags" {
   description = "Standard tags for all resources"
   type        = map
+}
+
+variable "task_role_arn" {
+  description = "IAM role granting Fargate task permissions"
+  type        = string
 }
 
 variable "web_log_retention_days" {
