@@ -11,7 +11,7 @@ module "network" {
 }
 ```
 
-# Testing
+## Testing
 
 We use [Terratest](https://terratest.gruntwork.io). You need to have Go installed and configured.
 
