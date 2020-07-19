@@ -5,7 +5,13 @@ provider "aws" {
 data "aws_availability_zones" "available" {}
 
 data "aws_vpc" "selected" {
-  filter = var.filter
+  dynamic "filter" {
+    for_each = var.vpc_filters
+    content {
+      name   = filter.value["name"]
+      values = filter.value["values"]
+    }
+  }
 }
 
 data "aws_subnet_ids" "selected" {
