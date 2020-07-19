@@ -27,11 +27,13 @@ variable "environment" {
 variable "exec_role" {
   description = "IAM role used by Fargate to make API calls"
   type        = string
+  default     = ""
 }
 
 variable "region" {
   description = "AWS region to target"
   type        = string
+  default     = "us-east-2"
 }
 
 
@@ -68,6 +70,7 @@ variable "tags" {
 variable "task_role" {
   description = "IAM role granting Fargate task permissions"
   type        = string
+  default     = ""
 }
 
 variable "vpc_filters" {
