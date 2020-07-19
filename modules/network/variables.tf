@@ -3,10 +3,10 @@ variable "region" {
   type        = string
 }
 
-variable "vpc_filter" {
-  description = "Filter used to select VPC"
-  type = object({
+variable "vpc_filters" {
+  description = "Filters used to select VPC"
+  type = list(object({
     name   = string,
     values = list(any)
-  })
+  }))
 }
