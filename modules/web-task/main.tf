@@ -1,24 +1,5 @@
-terraform {
-  required_version = ">= 0.12"
-
-  required_providers {
-    aws = ">= 2.56"
-  }
-}
-
 provider "aws" {
   region = var.region
-}
-
-data "aws_vpc" "selected" {
-  filter {
-    name   = "isDefault"
-    values = [true]
-  }
-}
-
-data "aws_subnet_ids" "selected" {
-  vpc_id = data.aws_vpc.selected.id
 }
 
 locals {
@@ -28,12 +9,9 @@ locals {
       "environment", "${var.environment}"
     )
   )
-  vpc     = data.aws_vpc.selected.id
-  cidr    = data.aws_vpc.selected.cidr_block
-  subnets = data.aws_subnet_ids.selected.ids
 }
 
-resource "aws_ecr_repository" "web" {
+resource "aws_ecr_repository" "web_task" {
   name                 = "${var.app_name}-${var.environment}"
   image_tag_mutability = "MUTABLE"
 
@@ -44,8 +22,8 @@ resource "aws_ecr_repository" "web" {
   tags = local.tags
 }
 
-resource "aws_ecr_lifecycle_policy" "web" {
-  repository = aws_ecr_repository.web.name
+resource "aws_ecr_lifecycle_policy" "web_task" {
+  repository = aws_ecr_repository.web_task.name
 
   policy = <<EOF
 {
@@ -68,13 +46,13 @@ resource "aws_ecr_lifecycle_policy" "web" {
 EOF
 }
 
-resource "aws_cloudwatch_log_group" "web" {
+resource "aws_cloudwatch_log_group" "web_task" {
   name              = "/ecs/${var.app_name}-${var.environment}"
   retention_in_days = var.web_log_retention_days
   tags              = local.tags
 }
 
-resource "aws_ecs_cluster" "web" {
+resource "aws_ecs_cluster" "web_task" {
   name = "${var.app_name}-${var.environment}"
 
   tags = local.tags
@@ -85,23 +63,23 @@ resource "aws_ecs_cluster" "web" {
   }
 }
 
-resource "aws_ecs_task_definition" "web" {
+resource "aws_ecs_task_definition" "web_task" {
   family = "${var.app_name}-${var.environment}"
   container_definitions = templatefile("${path.module}/templates/containerDefinition.json", {
     container_cpu    = var.container_cpu,
     container_memory = var.container_memory,
     environment      = var.environment,
-    image            = "${aws_ecr_repository.web.repository_url}:latest"
+    image            = "${aws_ecr_repository.web_task.repository_url}:latest"
     name             = "${var.app_name}-${var.environment}",
     region           = var.region
   })
-  task_role_arn      = var.task_role_arn
-  execution_role_arn = var.execution_role_arn
+  task_role_arn      = var.task_role
+  execution_role_arn = var.exec_role
   network_mode       = "awsvpc"
   cpu                = var.container_cpu
   memory             = var.container_memory
 
-  depends_on = [aws_cloudwatch_log_group.web]
+  depends_on = [aws_cloudwatch_log_group.web_task]
 
   tags = local.tags
 }
