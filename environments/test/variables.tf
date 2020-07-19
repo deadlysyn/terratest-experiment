@@ -16,6 +16,7 @@ variable "container_memory" {
 variable "ecr_expire_days" {
   description = "How many days to keep old ECR images"
   type        = number
+  default     = 1
 }
 
 variable "environment" {
@@ -23,7 +24,7 @@ variable "environment" {
   type        = string
 }
 
-variable "execution_role_arn" {
+variable "exec_role" {
   description = "IAM role used by Fargate to make API calls"
   type        = string
 }
@@ -64,12 +65,21 @@ variable "tags" {
   }
 }
 
-variable "task_role_arn" {
+variable "task_role" {
   description = "IAM role granting Fargate task permissions"
   type        = string
+}
+
+variable "vpc_filters" {
+  description = "Filters used to select VPC"
+  type = list(object({
+    name   = string,
+    values = list(any)
+  }))
 }
 
 variable "web_log_retention_days" {
   description = "How long to keep web app cloudwatch logs"
   type        = number
+  default     = 1
 }
