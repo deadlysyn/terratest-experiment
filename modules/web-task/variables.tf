@@ -23,7 +23,7 @@ variable "environment" {
   type        = string
 }
 
-variable "execution_role_arn" {
+variable "exec_role" {
   description = "IAM role used by Fargate to make API calls"
   type        = string
 }
@@ -59,7 +59,7 @@ variable "tags" {
   type        = map
 }
 
-variable "task_role_arn" {
+variable "task_role" {
   description = "IAM role granting Fargate task permissions"
   type        = string
 }
