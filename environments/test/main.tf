@@ -32,9 +32,9 @@ module "web_task" {
   container_memory       = var.container_memory
   ecr_expire_days        = var.ecr_expire_days
   environment            = var.environment
-  exec_role              = var.exec_role
+  exec_role              = local.exec_role
   region                 = var.region
   tags                   = var.tags
-  task_role              = var.task_role
+  task_role              = local.task_role
   web_log_retention_days = var.web_log_retention_days
 }
