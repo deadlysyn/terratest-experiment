@@ -1,10 +1,12 @@
 app_name         = "terratest-experiment"
 container_cpu    = 256
 container_memory = 512
-environment      = "test"
-region           = "us-east-2"
+environment      = "dev"
 
-# Use default VPC to run most places by default
+# Adjust as needed
+#region           = "us-east-2"
+
+# Use default VPC to run easily in most accounts
 vpc_filters = [{
   name   = "isDefault"
   values = [true]
