@@ -21,3 +21,7 @@ output "vpc_cidr" {
 output "vpc_id" {
   value = module.network.vpc_id
 }
+
+output "cloudwatch_log_group" {
+  value = module.web_task.cloudwatch_log_group
+}

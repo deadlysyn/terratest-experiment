@@ -1,12 +1,12 @@
-app_name             = "terratest-experiment"
-container_cpu        = 256
-container_memory     = 512
-container_port       = 8080
-environment          = "dev"
-instance_count       = 1
-instance_percent_max = 100
-instance_percent_min = 0
-region               = "us-east-2"
+app_name               = "terratest-experiment"
+container_cpu          = 256
+container_memory       = 512
+container_port         = 8080
+environment            = "dev"
+instance_count         = 1
+deployment_percent_max = 100
+deployment_percent_min = 0
+region                 = "us-east-2"
 
 # Use default VPC to run easily in most accounts
 vpc_filters = [{

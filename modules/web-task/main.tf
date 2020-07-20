@@ -84,34 +84,50 @@ resource "aws_ecs_task_definition" "web_task" {
   tags = local.tags
 }
 
-# resource "aws_ecs_service" "user_provisioning" {
-#   name                              = "${var.app_name}-${var.environment}"
-#   cluster                           = aws_ecs_cluster.user_provisioning.arn
-#   task_definition                   = aws_ecs_task_definition.user_provisioning.arn
-#   enable_ecs_managed_tags           = true
-#   propagate_tags                    = "SERVICE"
-#   health_check_grace_period_seconds = 10
-#   launch_type                       = "FARGATE"
-#   scheduling_strategy               = "REPLICA"
+resource "aws_security_group" "web_task" {
+  name        = "allow_web_task_traffic"
+  description = "Ingress and egress for web task"
+  vpc_id      = var.vpc_id
 
-#   desired_count                      = var.instance_count
-#   deployment_maximum_percent         = var.instance_percent_max
-#   deployment_minimum_healthy_percent = var.instance_percent_min
+  ingress {
+    from_port   = var.container_port
+    to_port     = var.container_port
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
-#   network_configuration {
-#     subnets         = local.private_subnets
-#     security_groups = [aws_security_group.instance.id]
-#   }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
-#   load_balancer {
-#     target_group_arn = aws_lb_target_group.user_provisioning.arn
-#     container_name   = "${var.app_name}-${var.environment}-app"
-#     container_port   = var.container_port
-#   }
+  tags = local.tags
+}
 
-#   lifecycle {
-#     ignore_changes = [desired_count]
-#   }
+resource "aws_ecs_service" "web_task" {
+  name                    = "${var.app_name}-${var.environment}"
+  cluster                 = aws_ecs_cluster.web_task.arn
+  task_definition         = aws_ecs_task_definition.web_task.arn
+  enable_ecs_managed_tags = true
+  propagate_tags          = "SERVICE"
+  launch_type             = "FARGATE"
+  scheduling_strategy     = "REPLICA"
 
-#   tags = local.tags
-# }
+  desired_count                      = var.instance_count
+  deployment_minimum_healthy_percent = var.deployment_percent_min
+  deployment_maximum_percent         = var.deployment_percent_max
+
+  network_configuration {
+    assign_public_ip = true
+    subnets          = var.deployment_subnets
+    security_groups  = [aws_security_group.web_task.id]
+  }
+
+  lifecycle {
+    ignore_changes = [desired_count]
+  }
+
+  tags = local.tags
+}
