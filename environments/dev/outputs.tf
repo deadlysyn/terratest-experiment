@@ -2,8 +2,16 @@ output "availability_zones" {
   value = module.network.availability_zones
 }
 
+output "cloudwatch_log_group" {
+  value = module.web.cloudwatch_log_group
+}
+
+output "dns_name" {
+  value = module.web.dns_name
+}
+
 output "ecr_repository_url" {
-  value = module.web_task.ecr_repository_url
+  value = module.web.ecr_repository_url
 }
 
 output "subnet_cidrs" {
@@ -20,8 +28,4 @@ output "vpc_cidr" {
 
 output "vpc_id" {
   value = module.network.vpc_id
-}
-
-output "cloudwatch_log_group" {
-  value = module.web_task.cloudwatch_log_group
 }

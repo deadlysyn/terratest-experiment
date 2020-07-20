@@ -49,7 +49,12 @@ variable "deployment_percent_min" {
 }
 
 variable "deployment_subnets" {
-  description = "Subnets used for task deployment"
+  description = "Subnets IDs used for task deployment"
+  type        = list(string)
+}
+
+variable "deployment_subnet_cidrs" {
+  description = "Subnets CIDRs used for task deployment"
   type        = list(string)
 }
 
