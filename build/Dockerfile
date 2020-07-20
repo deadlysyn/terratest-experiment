@@ -5,8 +5,13 @@ RUN apk update && \
       apk --no-cache add curl # support container health checks
 
 COPY src/public/html /usr/share/nginx/html/
-COPY entrypoint.sh /root/
+COPY update-index.sh /docker-entrypoint.d/
 
-EXPOSE 80
+ENV NGINX_PORT 8080
 
-ENTRYPOINT ["/root/entrypoint.sh"]
+EXPOSE 8080
+
+USER nginx
+
+CMD ["nginx", "-g", "daemon off;"]
+
