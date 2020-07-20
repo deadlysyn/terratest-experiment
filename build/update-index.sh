@@ -10,4 +10,3 @@ if [ -e "${FILE}" ]; then
   sed -i'' "s/%%environment%%/${ENVIRONMENT}/g" "${FILE}"
 fi
 
-exec gosu nginx
