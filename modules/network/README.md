@@ -22,10 +22,10 @@ $ make test
 
 ## Inputs
 
-| Name       | Description                       |  Type  | Default  | Required |
-| ---------- | --------------------------------- | :----: | :------: | :------: |
-| region     | AWS region to target              | string | `` | yes |
-| vpc_filter | AWS API filter used to select VPC |  map   | `` | yes |
+| Name       | Description                       |                                     Type                                      |                             Default                             | Required |
+| ---------- | --------------------------------- | :---------------------------------------------------------------------------: | :-------------------------------------------------------------: | :------: |
+| region     | AWS region to target              |                                    string                                     |                            `` | yes                             |
+| vpc_filter | AWS API filter used to select VPC | <pre>list(object({<br/> name = "string"<br/> values = list(any)<br/>}))</pre> | <pre>[{<br/>name = "isDefault"<br/>values = [true]<br/>}]</pre> |   yes    |
 
 ## Outputs
 
