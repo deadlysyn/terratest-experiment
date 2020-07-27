@@ -7,6 +7,3 @@ RUN apk update && \
 COPY src/public/html /usr/share/nginx/html/
 COPY src/scripts/update-index.sh /docker-entrypoint.d/
 
-ENV NGINX_PORT 8080
-EXPOSE 8080
-
