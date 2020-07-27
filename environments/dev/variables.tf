@@ -78,6 +78,10 @@ variable "vpc_filters" {
     name   = string,
     values = list(any)
   }))
+  default = [{
+    name   = "isDefault"
+    values = [true]
+  }]
 }
 
 variable "web_log_retention_days" {
