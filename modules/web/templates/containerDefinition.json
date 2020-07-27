@@ -10,7 +10,7 @@
     },
     "portMappings": [
       {
-        "containerPort": 8080,
+        "containerPort": 80,
         "protocol": "tcp"
       }
     ],
@@ -28,7 +28,7 @@
     "startTimeout": 10,
     "healthCheck": {
       "retries": 2,
-      "command": ["CMD-SHELL", "curl -f http://localhost:8080/ || exit 1"],
+      "command": ["CMD-SHELL", "curl -f http://localhost/ || exit 1"],
       "timeout": 5,
       "interval": 60,
       "startPeriod": 10
