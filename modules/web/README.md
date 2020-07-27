@@ -50,7 +50,7 @@ $ make test
 | Name                    | Description                                  |  Type  | Default                                                                                       | Required |
 | ----------------------- | -------------------------------------------- | :----: | --------------------------------------------------------------------------------------------- | :------: |
 | app_name                | Descriptive name used to build IDs           | string | `` | yes                                                                                      |
-| container_cpu           | CPU slices for ECS task (1024 = 1 vCPU)      | number | `` | yes                                                                                      |
+| container_cpu           | CPU units for ECS task (1024 = 1 vCPU)       | number | `` | yes                                                                                      |
 | container_memory        | Memory for ECS task (MB)                     | number | `` | yes                                                                                      |
 | container_port          | Port exposed by application container        | number | `8080`                                                                                        |   yes    |
 | deployment_percent_max  | Maximum %healthy containers                  | number | `` | no                                                                                       |
