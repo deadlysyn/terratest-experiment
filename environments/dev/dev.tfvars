@@ -1,7 +1,7 @@
 app_name               = "terratest-experiment"
 container_cpu          = 256
 container_memory       = 512
-container_port         = 8080
+container_port         = 80
 environment            = "dev"
 instance_count         = 2
 deployment_percent_max = 100
