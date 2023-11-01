@@ -5,7 +5,7 @@ This repo is an example of one way to organize larger
 [Terratest](https://terratest.gruntwork.io) to validte infrastructure
 code. It deploys a simple [ECS](https://aws.amazon.com/ecs)-based web
 service for the sake of fleshing out associated tests in
-[this blog post]().
+[this blog post](https://deadlysyn.com/blog/posts/testing-infrastructure-automation).
 
 ## Infrastructure Deployment
 
